@@ -61,8 +61,8 @@ public class ExtendedSettingsFragment extends PreferenceFragment {
     private static final String PREF_CAMERA_ALT_ACT = "persist.camera.alt.act";
     private static final String m8MPSwitchPref = "8mp_switch";
     private static final String mCameraAltAct = "alt_act_switch";
-    private static final String mSleepSwitchPref = "sleep_switch";
-    private static final String PREF_NEVERSLEEP = "persist.vendor.neversleep";
+    protected static final String mSleepSwitchPref = "sleep_switch";
+    protected static final String PREF_NEVERSLEEP = "persist.vendor.neversleep";
     protected static final String mADBOverNetworkSwitchPref = "adbon_switch";
     protected static final String mDynamicResolutionSwitchPref = "dynres_list_switch";
     protected static final String mDispCalSwitchPref = "dispcal_list_switch";
@@ -197,8 +197,8 @@ public class ExtendedSettingsFragment extends PreferenceFragment {
                     confirmRebootChange();
                     break;
                 case mSleepSwitchPref:
-                    SystemProperties.set(PREF_NEVERSLEEP, String.valueOf((Integer) value));
-                    confirmRebootChange();
+                    SystemProperties.set(PREF_NEVERSLEEP,
+                            String.valueOf((Boolean) value));
                     break;
                 case mADBOverNetworkSwitchPref:
                     if ((Boolean) value) {
