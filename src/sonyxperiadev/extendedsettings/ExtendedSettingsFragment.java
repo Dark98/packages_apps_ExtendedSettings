@@ -61,6 +61,8 @@ public class ExtendedSettingsFragment extends PreferenceFragment {
     private static final String PREF_CAMERA_ALT_ACT = "persist.camera.alt.act";
     private static final String m8MPSwitchPref = "8mp_switch";
     private static final String mCameraAltAct = "alt_act_switch";
+    private static final String mSleepSwitchPref = "sleep_switch";
+    private static final String PREF_NEVERSLEEP = "persist.vendor.neversleep";
     protected static final String mADBOverNetworkSwitchPref = "adbon_switch";
     protected static final String mDynamicResolutionSwitchPref = "dynres_list_switch";
     protected static final String mDispCalSwitchPref = "dispcal_list_switch";
@@ -194,6 +196,10 @@ public class ExtendedSettingsFragment extends PreferenceFragment {
                     SystemProperties.set(PREF_CAMERA_ALT_ACT, String.valueOf((Boolean) value));
                     confirmRebootChange();
                     break;
+                case mSleepSwitchPref:
+                    SystemProperties.set(PREF_NEVERSLEEP, String.valueOf((Integer) value));
+                    confirmRebootChange();
+                    break;
                 case mADBOverNetworkSwitchPref:
                     if ((Boolean) value) {
                         confirmEnablingADBON();
@@ -228,12 +234,14 @@ public class ExtendedSettingsFragment extends PreferenceFragment {
 
         findPreference(m8MPSwitchPref).setOnPreferenceChangeListener(mPreferenceListener);
         findPreference(mCameraAltAct).setOnPreferenceChangeListener(mPreferenceListener);
+        findPreference(mSleepSwitchPref).setOnPreferenceChangeListener(mPreferenceListener);
         findPreference(mADBOverNetworkSwitchPref).setOnPreferenceChangeListener(mPreferenceListener);
         mFragmentManager = getFragmentManager();
         mPrefEditor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
 
         loadPref(m8MPSwitchPref, PREF_8MP_23MP_ENABLED);
         loadPref(mCameraAltAct, PREF_CAMERA_ALT_ACT);
+        loadPref(mSleepSwitchPref, PREF_NEVERSLEEP);
 
         int ret = initializeDRSListPreference();
         if (ret == 0) {
